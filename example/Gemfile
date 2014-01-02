@@ -1,0 +1,5 @@
+source 'http://rubygems.org/'
+
+gem 'ascii_paint', path: '..'
+
+gem 'pry'
