@@ -72,9 +72,10 @@ class AsciiPaint::Config
   def color_map
     @color_map ||=
       begin
-        color_map = Default::COLOR_MAP.dup
-        replace_special_symbols!(color_map)
-        color_map
+        map = Default::COLOR_MAP.dup
+        map.default = Default::COLOR_FOR_UNDEFINED_CHARACTER
+        replace_special_symbols!(map)
+        map
       end
   end
 
