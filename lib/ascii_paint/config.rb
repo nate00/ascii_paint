@@ -26,14 +26,42 @@ class AsciiPaint::Config
       begin
         map = {
           ' ' => :transparent,
-          '_' => :white,
+
           '!' => :red,
           '@' => :orange,
           '#' => :yellow,
           '$' => :green,
           '%' => :blue,
           '^' => :purple,
-          '~' => :black
+
+          '_' => :white,
+          '~' => :black,
+
+          '<' => :lightgrey,
+          '>' => :grey,
+          '?' => :darkgrey,
+          ',' => :lightslategrey,
+          '.' => :slategrey,
+          '/' => :darkslategrey,
+          '\\' => :dimgrey,
+
+          ':' => :chocolate,
+          ';' => :blanchedalmond,
+          '\'' => :coral,
+          '"' => :deepskyblue,
+          '{' => :indigo,
+          '}' => :ivory,
+          '[' => :khaki,
+          ']' => :lavender,
+          '|' => :hotpink,
+          '&' => :darksalmon,
+          '*' => :lime,
+          '(' => :lightyellow,
+          ')' => :honeydew,
+          '-' => :azure,
+          '+' => :crimson,
+          '=' => :antiquewhite,
+          '`' => :cornsilk
         }
 
         letters = ('a'..'z').zip('A'..'Z').flatten  # ['a', 'A', 'b', 'B', ...]
