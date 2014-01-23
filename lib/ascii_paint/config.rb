@@ -4,7 +4,7 @@ class AsciiPaint::Config
     CHARACTER_HEIGHT = 16
     CHARACTER_WIDTH = 8
     COLOR_MAP = {
-      ' ' => :brown,
+      ' ' => :transparent,
       '_' => :white,
       '!' => :red,
       '@' => :orange,
