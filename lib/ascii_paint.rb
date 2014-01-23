@@ -44,7 +44,7 @@ module AsciiPaint
     width = lines.map(&:size).max
 
     width_pixels, height_pixels = configuration.characters_to_pixels(width, height)
-    png = ChunkyPNG::Image.new(width_pixels, height_pixels, TRANSPARENT)
+    png = ChunkyPNG::Image.new(width_pixels, height_pixels, configuration.color_map[' '])
   end
 
   def self.ascii_to_colors(strings, configuration)
