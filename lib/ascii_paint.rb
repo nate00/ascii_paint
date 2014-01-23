@@ -2,6 +2,8 @@ require 'bundler/setup'
 require 'chunky_png'
 
 module AsciiPaint
+  
+  class UndefinedCharacter < Exception; end
 
   TRANSPARENT = ChunkyPNG::Color::TRANSPARENT
   BORDER_COLOR = TRANSPARENT
@@ -50,7 +52,9 @@ module AsciiPaint
   def self.ascii_to_colors(strings, configuration)
     strings.map do |line|
       line.chars.map do |char|
-        configuration.color_map[char]
+        color = configuration.color_map[char]
+        raise AsciiPaint::UndefinedCharacter.new "Couldn't find a color mapping for character: #{char}" unless color
+        color
       end
     end
   end
