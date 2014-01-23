@@ -40,7 +40,12 @@ class AsciiPaint::Config
   end
 
   def color_map
-    @color_map ||= Default::COLOR_MAP
+    @color_map ||=
+      begin
+        color_map = Default::COLOR_MAP.dup
+        replace_special_symbols!(color_map)
+        color_map
+      end
   end
 
   def character_width

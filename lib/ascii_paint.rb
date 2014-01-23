@@ -15,7 +15,7 @@ module AsciiPaint
   #   color_for_undefined_character
   #
   def self.paint(ascii_art, out_filename, conf = {})
-    configuration = @configuration.dup
+    configuration = self.config.dup
     configuration.set_attributes(conf)
 
     ascii_array = ascii_art_to_array(ascii_art)
