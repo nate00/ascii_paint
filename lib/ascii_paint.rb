@@ -74,6 +74,10 @@ module AsciiPaint
   def self.save_image(image, filename, _)
     image.save(filename, :interlace => true)
   end
+
+  def self.root
+    Pathname.new(__FILE__).parent.parent
+  end
 end
 
 require_relative 'ascii_paint/config.rb'
