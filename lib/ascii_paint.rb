@@ -28,7 +28,9 @@ module AsciiPaint
   private
 
   def self.ascii_art_to_array(ascii_art)
-    ascii_art = ascii_art.split("\n") if ascii_art.is_a? String
+    return ascii_art if ascii_art.is_a? Array
+
+    ascii_art = ascii_art.to_s.split("\n")
     if ascii_art.size == 1
       ascii_art = File.open(ascii_art[0], 'r').to_a.map(&:chomp)
     end
