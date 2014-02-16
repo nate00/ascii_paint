@@ -4,6 +4,7 @@ class AsciiPaint::Config
     private
 
     def self.rainbow_mapping(characters)
+      # Thanks jbum (http://krazydad.com/tutorials/makecolors.php)
       hash = {}
       period = Math::PI * 2
       frequency = period / characters.count
