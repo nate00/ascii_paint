@@ -14,4 +14,8 @@ Gem::Specification.new do |s|
   s.files = ['lib/ascii_paint.rb']
 
   s.add_dependency 'chunky_png', '~>1.2.9'
+
+  s.add_development_dependency 'rspec', '~>2.14.1'
+  s.add_development_dependency 'pry'
+  s.test_files = Dir.glob('spec/*.rb')
 end
