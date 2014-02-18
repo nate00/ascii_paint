@@ -5,7 +5,7 @@ module AsciiPaint
   
   # Exception raised when ASCII paint encounters a character without a paint
   # color specified.
-  class UndefinedCharacter < Exception; end
+  class CharacterNotFound < Exception; end
 
   TRANSPARENT = ChunkyPNG::Color::TRANSPARENT
   BORDER_COLOR = TRANSPARENT
@@ -70,7 +70,7 @@ module AsciiPaint
     strings.map do |line|
       line.chars.map do |char|
         color = configuration.color_map[char]
-        raise AsciiPaint::UndefinedCharacter.new "Couldn't find a color mapping for character: #{char}" unless color
+        raise AsciiPaint::CharacterNotFound.new "Couldn't find a color mapping for character: #{char}" unless color
         color
       end
     end
