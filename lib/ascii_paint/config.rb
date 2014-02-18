@@ -1,5 +1,10 @@
+# An instance of class +AsciiPaint::Config+ is used to set global configuration
+# options for ASCII paint. Pass a block to {AsciiPaint.config} to access this
+# object.
+
 class AsciiPaint::Config
 
+  # Default values for configuration settings.
   module Default
     private
 
@@ -79,7 +84,13 @@ class AsciiPaint::Config
     transparent: AsciiPaint::TRANSPARENT
   }
 
-  attr_accessor :character_width, :character_height
+  # The horizontal size in pixels of the rectangle that replaces a single
+  # character during painting.
+  attr_accessor :character_width
+
+  # The vertical size in pixels of the rectangle that replaces a single
+  # character during painting.
+  attr_accessor :character_height
 
   def initialize(settings = {})
     set_attributes(settings)
@@ -89,15 +100,33 @@ class AsciiPaint::Config
     alias_method :default, :new
   end
 
+  # Merge new mappings into the color map.
+  #
+  # The color map specifies which color paints over each character. For example,
+  #     config.color_map = { 'a' => :blue }
+  # tells ASCII paint to replace the character 'a' with the color blue.
+  #
+  # @param  hash [Hash<String, Symbol>]
+  #   the new mappings to be merged into the color map.
+  # @return [void]
   def color_map=(hash)
     replace_special_symbols!(hash)
     @color_map = color_map.merge(hash)
   end
 
-  def color_for_undefined_character=(color)
-    color_map.default = replacement_for_special_symbol(color)
+  # Set the color to paint over characters whose color hasn't been defined by
+  # the color map.
+  #
+  # @param default_color [Symbol]
+  #   the default color to replace characters without a specified color.
+  # @return [void]
+  def color_for_undefined_character=(default_color)
+    color_map.default = replacement_for_special_symbol(default_color)
   end
 
+  # The color map defining which colors will paint over which characters.
+  #
+  # @return hash [Hash<String, Symbol>]
   def color_map
     @color_map ||=
       begin
@@ -120,6 +149,15 @@ class AsciiPaint::Config
     [x * character_width, y * character_height]
   end
 
+  # Set configuration options using a hash instead of using method calls. For
+  # example,
+  #     config.set_attributes({character_width: 10})
+  # is equivalent to
+  #     config.character_width = 10
+  #
+  # @param  settings [Hash<Symbol, value>]
+  #   settings mapping from attribute name to value.
+  # @return [void]
   def set_attributes(setting)
     setting.each do |key, value|
       mutator_name = "#{key}="
@@ -141,6 +179,10 @@ class AsciiPaint::Config
 end
 
 module AsciiPaint
+  # Passes an instance of {AsciiPaint::Config} to the given block. Used to set
+  # global configuration.
+  #
+  # @return [Config] the global configuration
   def self.config
     @configuration ||= Config.default
     yield(@configuration) if block_given?

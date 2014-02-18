@@ -3,19 +3,34 @@ require 'chunky_png'
 
 module AsciiPaint
   
+  # Exception raised when ASCII paint encounters a character without a paint
+  # color specified.
   class UndefinedCharacter < Exception; end
 
   TRANSPARENT = ChunkyPNG::Color::TRANSPARENT
   BORDER_COLOR = TRANSPARENT
 
-  # ascii_art - multiline string, string array, or filename
-  # out_filename - name of PNG file to output
-  # config:
-  #   color_map
-  #   character_width
-  #   character_height
-  #   color_for_undefined_character
+  # Paints a PNG based on the given ASCII art.
   #
+  # Example:
+  #     text = "
+  #     !!!!! @@@@@ $$$$$ %%%%% ^^^^^       @@@@@ $$$$$ %%%%% ^   ^ !!!!! 
+  #     !   ! @     $       %     ^         @   @ $   $   %   ^^  ^   !   
+  #     !!!!! @@@@@ $       %     ^         @@@@@ $$$$$   %   ^ ^ ^   !   
+  #     !   !     @ $       %     ^         @     $   $   %   ^  ^^   !   
+  #     !   ! @@@@@ $$$$$ %%%%% ^^^^^ !!!!! @     $   $ %%%%% ^   ^   !   
+  #     "
+  #
+  #     AsciiPaint.paint(text, 'out.png')
+  #
+  # @param  ascii_art [#to_s, Array<String>]
+  #   multiline string, string array or filename with the ASCII art to paint
+  # @param  out_filename [#to_s]
+  #   the name of the painted PNG file
+  # @param  configuration [Hash<Symbol, value>]
+  #   configuration settings. Keys should be the names of attributes of
+  #   {AsciiPaint::Config}, such as +:character_height+.
+  # @return [void]
   def self.paint(ascii_art, out_filename, conf = {})
     configuration = self.config.dup
     configuration.set_attributes(conf)
