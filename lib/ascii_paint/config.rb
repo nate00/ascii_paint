@@ -4,82 +4,6 @@
 
 class AsciiPaint::Config
 
-  # Default values for configuration settings.
-  module Default
-    private
-
-    def self.rainbow_mapping(characters)
-      # Thanks jbum (http://krazydad.com/tutorials/makecolors.php)
-      hash = {}
-      period = Math::PI * 2
-      frequency = period / characters.count
-      characters.each_with_index do |char, index|
-        r = Math.cos(frequency * index + 0) * 127 + 128;
-        g = Math.cos(frequency * index + period / 3) * 127 + 128;
-        b = Math.cos(frequency * index + period * 2 / 3) * 127 + 128;
-        color = ChunkyPNG::Color.rgb(r.to_i, g.to_i, b.to_i)
-        hash[char] = color
-      end
-      hash
-    end
-
-    public
-
-    CHARACTER_HEIGHT = 16
-    CHARACTER_WIDTH = 8
-    COLOR_FOR_UNDEFINED_CHARACTER = :black
-    COLOR_MAP =
-      begin
-        map = {
-          ' ' => :transparent,
-
-          '!' => :red,
-          '@' => :orange,
-          '#' => :yellow,
-          '$' => :green,
-          '%' => :blue,
-          '^' => :purple,
-
-          '_' => :white,
-          '~' => :black,
-
-          '<' => :lightgrey,
-          '>' => :grey,
-          '?' => :darkgrey,
-          ',' => :lightslategrey,
-          '.' => :slategrey,
-          '/' => :darkslategrey,
-          '\\' => :dimgrey,
-
-          ':' => :chocolate,
-          ';' => :blanchedalmond,
-          '\'' => :coral,
-          '"' => :deepskyblue,
-          '{' => :indigo,
-          '}' => :ivory,
-          '[' => :khaki,
-          ']' => :lavender,
-          '|' => :hotpink,
-          '&' => :darksalmon,
-          '*' => :lime,
-          '(' => :lightyellow,
-          ')' => :honeydew,
-          '-' => :azure,
-          '+' => :crimson,
-          '=' => :antiquewhite,
-          '`' => :cornsilk
-        }
-
-        letters = ('a'..'z').zip('A'..'Z').flatten  # ['a', 'A', 'b', 'B', ...]
-        map.merge! rainbow_mapping(letters)
-
-        numbers = ('0'..'9')
-        map.merge! rainbow_mapping(numbers)
-
-        map
-      end
-  end
-
   SPECIAL_SYMBOL_MAP = {
     transparent: AsciiPaint::TRANSPARENT
   }
@@ -176,6 +100,85 @@ class AsciiPaint::Config
   def replacement_for_special_symbol(symbol)
     SPECIAL_SYMBOL_MAP[symbol] || symbol
   end
+
+  public
+
+  # Default values for configuration settings.
+  module Default
+    private
+
+    def self.rainbow_mapping(characters)
+      # Thanks jbum (http://krazydad.com/tutorials/makecolors.php)
+      hash = {}
+      period = Math::PI * 2
+      frequency = period / characters.count
+      characters.each_with_index do |char, index|
+        r = Math.cos(frequency * index + 0) * 127 + 128;
+        g = Math.cos(frequency * index + period / 3) * 127 + 128;
+        b = Math.cos(frequency * index + period * 2 / 3) * 127 + 128;
+        color = ChunkyPNG::Color.rgb(r.to_i, g.to_i, b.to_i)
+        hash[char] = color
+      end
+      hash
+    end
+
+    public
+
+    CHARACTER_HEIGHT = 16
+    CHARACTER_WIDTH = 8
+    COLOR_FOR_UNDEFINED_CHARACTER = :black
+    COLOR_MAP =
+      begin
+        map = {
+          ' ' => :transparent,
+
+          '!' => :red,
+          '@' => :orange,
+          '#' => :yellow,
+          '$' => :green,
+          '%' => :blue,
+          '^' => :purple,
+
+          '_' => :white,
+          '~' => :black,
+
+          '<' => :lightgrey,
+          '>' => :grey,
+          '?' => :darkgrey,
+          ',' => :lightslategrey,
+          '.' => :slategrey,
+          '/' => :darkslategrey,
+          '\\' => :dimgrey,
+
+          ':' => :chocolate,
+          ';' => :blanchedalmond,
+          '\'' => :coral,
+          '"' => :deepskyblue,
+          '{' => :indigo,
+          '}' => :ivory,
+          '[' => :khaki,
+          ']' => :lavender,
+          '|' => :hotpink,
+          '&' => :darksalmon,
+          '*' => :lime,
+          '(' => :lightyellow,
+          ')' => :honeydew,
+          '-' => :azure,
+          '+' => :crimson,
+          '=' => :antiquewhite,
+          '`' => :cornsilk
+        }
+
+        letters = ('a'..'z').zip('A'..'Z').flatten  # ['a', 'A', 'b', 'B', ...]
+        map.merge! rainbow_mapping(letters)
+
+        numbers = ('0'..'9')
+        map.merge! rainbow_mapping(numbers)
+
+        map
+      end
+  end
+
 end
 
 module AsciiPaint
