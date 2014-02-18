@@ -31,7 +31,8 @@ module AsciiPaint
   # @param  configuration [Hash<Symbol, value>]
   #   configuration settings. Keys should be the names of attributes of
   #   {AsciiPaint::Config}, such as +:character_height+.
-  # @return [void]
+  # @return [String]
+  #   the name of the painted PNG file
   def self.paint(ascii_art, out_filename, conf = {})
     configuration = self.config.dup
     configuration.set_attributes(conf)
@@ -39,6 +40,8 @@ module AsciiPaint
     ascii_array = ascii_art_to_array(ascii_art)
     image = ascii_to_image(ascii_array, configuration)
     save_image(image, out_filename, configuration)
+
+    out_filename
   end
 
   private
