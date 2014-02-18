@@ -7,10 +7,6 @@ module AsciiPaint
   # color specified.
   class CharacterNotFound < Exception; end
 
-  TRANSPARENT = ChunkyPNG::Color::TRANSPARENT
-  BORDER_COLOR = TRANSPARENT
-  private_constant :TRANSPARENT, :BORDER_COLOR
-
   # Paints a PNG based on the given ASCII art.
   #
   # Example:

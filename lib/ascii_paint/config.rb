@@ -4,9 +4,12 @@
 
 class AsciiPaint::Config
 
+  TRANSPARENT = ChunkyPNG::Color::TRANSPARENT
+  BORDER_COLOR = TRANSPARENT
   SPECIAL_SYMBOL_MAP = {
-    transparent: AsciiPaint::TRANSPARENT
+    transparent: TRANSPARENT
   }
+  private_constant :TRANSPARENT, :BORDER_COLOR, :SPECIAL_SYMBOL_MAP 
 
   # The horizontal size in pixels of the rectangle that replaces a single
   # character during painting.
