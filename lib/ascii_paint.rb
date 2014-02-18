@@ -81,7 +81,7 @@ module AsciiPaint
       row.each_with_index do |color, x|
         x_pixels, y_pixels = configuration.characters_to_pixels(x, y)
         width_pixels, height_pixels = configuration.characters_to_pixels(1, 1)
-        image.rect(x_pixels, y_pixels, x_pixels + width_pixels, y_pixels + height_pixels, BORDER_COLOR, color)
+        image.rect(x_pixels, y_pixels, x_pixels + width_pixels, y_pixels + height_pixels, configuration.border_color, color)
       end
     end
 

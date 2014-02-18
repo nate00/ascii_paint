@@ -5,11 +5,10 @@
 class AsciiPaint::Config
 
   TRANSPARENT = ChunkyPNG::Color::TRANSPARENT
-  BORDER_COLOR = TRANSPARENT
   SPECIAL_SYMBOL_MAP = {
     transparent: TRANSPARENT
   }
-  private_constant :TRANSPARENT, :BORDER_COLOR, :SPECIAL_SYMBOL_MAP 
+  private_constant :TRANSPARENT, :SPECIAL_SYMBOL_MAP 
 
   # The horizontal size in pixels of the rectangle that replaces a single
   # character during painting.
@@ -90,6 +89,10 @@ class AsciiPaint::Config
       mutator_name = "#{key}="
       self.send(mutator_name, value)
     end
+  end
+
+  def border_color
+    TRANSPARENT
   end
 
   private
