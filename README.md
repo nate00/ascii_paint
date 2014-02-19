@@ -26,3 +26,7 @@ Use `AsciiPaint.config` to define your personal painting style.
 You can also customize individual paintings by passing options to `AsciiPaint.paint`
 
     AsciiPaint.paint(text, 'out.png', character_width: 10, character_height: 10)
+
+### License
+
+MIT
