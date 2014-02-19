@@ -24,7 +24,7 @@ module AsciiPaint
   #   multiline string, string array or filename with the ASCII art to paint
   # @param  out_filename [#to_s]
   #   the name of the painted PNG file
-  # @param  configuration [Hash<Symbol, value>]
+  # @param  conf [Hash<Symbol, value>]
   #   configuration settings. Keys should be the names of attributes of
   #   {AsciiPaint::Config}, such as +:character_height+.
   # @return [String]
