@@ -19,7 +19,7 @@ class AsciiPaint::Config
   attr_accessor :character_height
 
   def initialize(settings = {})
-    set_attributes(settings)
+    set_options(settings)
   end
 
   class << self
@@ -52,7 +52,7 @@ class AsciiPaint::Config
 
   # The color map defining which colors will paint over which characters.
   #
-  # @return hash [Hash<String, Symbol>]
+  # @return [Hash<String, Symbol>]
   def color_map
     @color_map ||=
       begin
@@ -77,15 +77,15 @@ class AsciiPaint::Config
 
   # Set configuration options using a hash instead of using method calls. For
   # example,
-  #     config.set_attributes({character_width: 10})
+  #     config.set_options({character_width: 10})
   # is equivalent to
   #     config.character_width = 10
   #
-  # @param  settings [Hash<Symbol, value>]
+  # @param  options [Hash<Symbol, value>]
   #   settings mapping from attribute name to value.
   # @return [void]
-  def set_attributes(setting)
-    setting.each do |key, value|
+  def set_options(options)
+    options.each do |key, value|
       mutator_name = "#{key}="
       self.send(mutator_name, value)
     end

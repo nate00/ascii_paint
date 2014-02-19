@@ -31,7 +31,7 @@ module AsciiPaint
   #   the name of the painted PNG file
   def self.paint(ascii_art, out_filename, conf = {})
     configuration = self.config.dup
-    configuration.set_attributes(conf)
+    configuration.set_options(conf)
 
     ascii_array = ascii_art_to_array(ascii_art)
     image = ascii_to_image(ascii_array, configuration)
