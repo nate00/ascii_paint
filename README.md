@@ -27,6 +27,10 @@ You can also customize individual paintings by passing options to `AsciiPaint.pa
 
     AsciiPaint.paint(text, 'out.png', character_width: 10, character_height: 10)
 
+### Demonstration
+
+![ASCII paint logo](https://raw.github.com/nate00/ascii_paint/master/logo.gif)
+
 ### License
 
 MIT
