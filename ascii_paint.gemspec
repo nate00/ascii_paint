@@ -1,6 +1,8 @@
+require File.expand_path('../lib/ascii_paint/version', __FILE__)
+
 Gem::Specification.new do |s|
   s.name = 'ascii_paint'
-  s.version = '0.0.0'
+  s.version = AsciiPaint::VERSION
   s.date = '2013-12-14'
 
   s.summary = 'Paint in ASCII!'
