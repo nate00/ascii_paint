@@ -97,4 +97,7 @@ module AsciiPaint
   end
 end
 
+require_relative 'ascii_paint/block_character.rb'
+require_relative 'ascii_paint/block_string.rb'
 require_relative 'ascii_paint/config.rb'
+require_relative 'ascii_paint/version.rb'
