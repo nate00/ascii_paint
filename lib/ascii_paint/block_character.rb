@@ -21,7 +21,7 @@ module AsciiPaint
     end
 
     def newline?
-      @newline
+      !!@newline
     end
 
     def to_s

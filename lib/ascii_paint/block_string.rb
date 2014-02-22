@@ -6,26 +6,33 @@ module AsciiPaint
       @block_characters = string.chars.map { |char| BlockCharacter.new(char) }
     end
 
+    def each_row
+      return to_enum(:each_row) unless block_given?
+
+      rows =
+        block_characters.chunk do |block_char|
+          if block_char.newline?
+            nil
+          else
+            :not_newline
+          end
+        end.map do |symbol, row|
+          row
+        end
+
+      rows.each do |row|
+        yield row
+      end
+    end
+
     def to_a
-      array = []
-
-      # TODO: DRY and ruby-ify this loop
-      block_row = nil
-      block_characters.each do |block_char|
-        block_row ||= [''] * BlockCharacter.height
-
-        if block_char.newline?
-          array += block_row
-          block_row = nil
-        else
-          block_row.map!.with_index do |row, i|
-            row + block_char.ascii[i]
+      each_row.flat_map do |block_row|
+        (0...BlockCharacter.height).map do |h|
+          block_row.inject('') do |string_row, block_char|
+            string_row + block_char.ascii[h]
           end
         end
       end
-      array += block_row
-
-      array
     end
   end
 end
