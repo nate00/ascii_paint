@@ -1,4 +1,3 @@
-# TODO: letter or character?
 module AsciiPaint
   class BlockCharacter
     attr_reader :ascii
