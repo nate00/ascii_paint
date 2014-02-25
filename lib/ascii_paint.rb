@@ -29,13 +29,13 @@ module AsciiPaint
   #   {AsciiPaint::Config}, such as +:character_height+.
   # @return [String]
   #   the name of the painted PNG file
-  def self.paint(ascii_art, out_filename, conf = {})
-    configuration = self.config.dup
-    configuration.set_options(conf)
+  def self.paint(ascii_art, out_filename, configuration = {})
+    global_configuration = self.config
+    local_configuration = global_configuration.dup.set_options(configuration)
 
     ascii_array = ascii_art_to_array(ascii_art)
-    image = ascii_to_image(ascii_array, configuration)
-    save_image(image, out_filename, configuration)
+    image = ascii_to_image(ascii_array, local_configuration)
+    save_image(image, out_filename, local_configuration)
 
     out_filename
   end

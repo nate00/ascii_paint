@@ -84,12 +84,13 @@ module AsciiPaint
     #
     # @param  options [Hash<Symbol, value>]
     #   settings mapping from attribute name to value.
-    # @return [void]
+    # @return self
     def set_options(options)
       options.each do |key, value|
         mutator_name = "#{key}="
         self.send(mutator_name, value)
       end
+      self
     end
 
     def border_color
