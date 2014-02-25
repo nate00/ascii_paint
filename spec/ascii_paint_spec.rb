@@ -11,6 +11,7 @@ describe AsciiPaint do
 
   after(:each) do
     Helpers.rm_rf_work_directory
+    AsciiPaint.config.reset!
   end
 
   it "does math good" do
@@ -63,7 +64,13 @@ describe AsciiPaint do
   end
 
   it "obeys AsciiPaint.config configuration" do
-    pending "figure out how to make this test not pollute others"
+    AsciiPaint.config do |config|
+      config.character_height = 100
+    end
+
+    AsciiPaint.paint(input_filename, OUTPUT_FILENAME)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
+    result.height.should eq(2 * 100)
   end
 
   it "obeys per-method-call configuration" do
@@ -74,7 +81,13 @@ describe AsciiPaint do
   end
 
   it "overrides global config with local config" do
-    pending "figure out how to make this test not pollute others"
+    AsciiPaint.config do |config|
+      config.character_height = 100
+    end
+
+    AsciiPaint.paint(input_filename, OUTPUT_FILENAME, character_height: 77)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
+    result.height.should eq(2 * 77)
   end
 
   it "paints transparent paint" do
