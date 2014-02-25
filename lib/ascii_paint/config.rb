@@ -19,7 +19,10 @@ module AsciiPaint
     # character during painting.
     attr_accessor :character_height
 
+    attr_accessor :color_map
+
     def initialize(settings = {})
+      reset!
       set_options(settings)
     end
 
@@ -51,27 +54,6 @@ module AsciiPaint
       color_map.default = replacement_for_special_symbol(default_color)
     end
 
-    # The color map defining which colors will paint over which characters.
-    #
-    # @return [Hash<String, Symbol>]
-    def color_map
-      @color_map ||=
-        begin
-          map = Default::COLOR_MAP.dup
-          map.default = Default::COLOR_FOR_UNDEFINED_CHARACTER
-          replace_special_symbols!(map)
-          map
-        end
-    end
-
-    def character_width
-      @character_width ||= Default::CHARACTER_WIDTH
-    end
-
-    def character_height
-      @character_height ||= Default::CHARACTER_HEIGHT
-    end
-
     def characters_to_pixels(x, y)
       [x * character_width, y * character_height]
     end
@@ -95,6 +77,18 @@ module AsciiPaint
 
     def border_color
       TRANSPARENT
+    end
+
+    def reset!
+      @character_height = Default::CHARACTER_HEIGHT
+      @character_width = Default::CHARACTER_WIDTH
+      @color_map =
+        begin
+          map = Default::COLOR_MAP.dup
+          map.default = Default::COLOR_FOR_UNDEFINED_CHARACTER
+          replace_special_symbols!(map)
+          map
+        end
     end
 
     private
