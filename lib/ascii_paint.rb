@@ -37,7 +37,17 @@ module AsciiPaint
     image = ascii_to_image(ascii_array, local_configuration)
     save_image(image, out_filename, local_configuration)
 
-    out_filename
+    if block_given?
+      begin
+        yield out_filename
+      ensure
+        FileUtils.rm(out_filename)
+      end
+
+      true
+    else
+      out_filename
+    end
   end
 
   private

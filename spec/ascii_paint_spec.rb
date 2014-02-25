@@ -97,4 +97,12 @@ describe AsciiPaint do
     alpha = ChunkyPNG::Color.a(color)
     alpha.should eq(0)
   end
+
+  it "deletes temporary files" do
+    AsciiPaint.paint("ASCII\npaint", OUTPUT_FILENAME) do |f|
+      File.should be_a_file OUTPUT_FILENAME
+    end
+
+    File.should_not be_a_file OUTPUT_FILENAME
+  end
 end

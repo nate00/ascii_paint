@@ -41,9 +41,9 @@ module AsciiPaint
   # TODO: support filename arguments
   # TODO: write tests
   # TODO: write docs
-  def self.block_paint(block_string, out_filename, conf = {})
+  def self.block_paint(block_string, out_filename, conf = {}, &block)
     block_string = block_string.join("\n") if block_string.respond_to? :join
     ascii_art = BlockString.new(block_string).to_a
-    paint(ascii_art, out_filename, conf)
+    paint(ascii_art, out_filename, conf, &block)
   end
 end

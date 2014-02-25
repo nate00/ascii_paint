@@ -33,6 +33,14 @@ describe AsciiPaint::BlockString do
     result.height.should eq(100 * AsciiPaint::BlockCharacter.height)
   end
 
+  it "deletes temporary files" do
+    AsciiPaint.block_paint("ASCII\npaint", OUTPUT_FILENAME) do |f|
+      File.should be_a_file OUTPUT_FILENAME
+    end
+
+    File.should_not be_a_file OUTPUT_FILENAME
+  end
+
   context "data directory" do
     it "has character files of the correct width" do
       Helpers.each_block_character_path do |path|
