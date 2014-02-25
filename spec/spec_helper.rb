@@ -43,15 +43,11 @@ module Helpers
     AsciiPaint.root.join('spec', 'fixtures')
   end
 
-  def self.data_directory
-    AsciiPaint.root.join('lib', 'ascii_paint')
-  end
-
   # TODO: split into separate helper
   def self.each_block_character_path
-    letters_dir = Helpers.data_directory.join('letters')
-    letters_dir.each_child(false) do |path|
-      full_path = letters_dir.join(path)
+    block_characters_dir = AsciiPaint.root.join('data', 'block_characters')
+    block_characters_dir.each_child(false) do |path|
+      full_path = block_characters_dir.join(path)
       yield full_path
     end
   end

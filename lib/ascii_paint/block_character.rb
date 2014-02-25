@@ -55,7 +55,7 @@ module AsciiPaint
 
     # TODO: filename escaping
     def load_ascii(character)
-      path = letters_dir.join("#{character}.txt")
+      path = block_characters_dir.join("#{character}.txt")
       if File.exists? path
         @ascii = File.open(path, 'r').to_a.map(&:chomp)
         @ascii = pad_ascii(@ascii)
@@ -78,8 +78,8 @@ module AsciiPaint
       padded
     end
 
-    def letters_dir
-      AsciiPaint.root.join('lib', 'ascii_paint', 'letters')
+    def block_characters_dir
+      AsciiPaint.root.join('data', 'block_characters')
     end
   end
 end
