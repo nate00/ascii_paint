@@ -2,7 +2,6 @@ require 'ascii_paint'
 require 'pry'
 
 describe AsciiPaint do
-  FILENAME = 'painted.png'
 
   let(:input_filename) { Helpers.fixtures_directory.join('ascii.txt') }
 
@@ -19,20 +18,20 @@ describe AsciiPaint do
   end
 
   it "writes a file" do
-    AsciiPaint.paint("ASCII\npaint", FILENAME)
-    File.should be_a_file FILENAME
+    AsciiPaint.paint("ASCII\npaint", OUTPUT_FILENAME)
+    File.should be_a_file OUTPUT_FILENAME
   end
 
   it "paints the correct dimensions" do
-    AsciiPaint.paint("ASCII\npaint", FILENAME, character_width: 10, character_height: 10)
-    result = ChunkyPNG::Image.from_file(FILENAME)
+    AsciiPaint.paint("ASCII\npaint", OUTPUT_FILENAME, character_width: 10, character_height: 10)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
     result.height.should eq(2 * 10)
     result.width.should eq(5 * 10)
   end
 
   it "paints the correct colors" do
-    AsciiPaint.paint("ASCII\npaint", FILENAME, character_width: 10, color_map: {'S' => :blue})
-    result = ChunkyPNG::Image.from_file(FILENAME)
+    AsciiPaint.paint("ASCII\npaint", OUTPUT_FILENAME, character_width: 10, color_map: {'S' => :blue})
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
     color = result.get_pixel(15, 0)
     red = ChunkyPNG::Color.r(color)
     green = ChunkyPNG::Color.g(color)
@@ -42,23 +41,23 @@ describe AsciiPaint do
 
   it "accepts a multiline string input" do
     multiline_string = "ASCII\npaint"
-    AsciiPaint.paint(multiline_string, FILENAME, character_width: 10, character_height: 10)
-    result = ChunkyPNG::Image.from_file(FILENAME)
+    AsciiPaint.paint(multiline_string, OUTPUT_FILENAME, character_width: 10, character_height: 10)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
     result.height.should eq(2 * 10)
     result.width.should eq(5 * 10)
   end
 
   it "accepts a string array input" do
     string_array = ["ASCII", "paint"]
-    AsciiPaint.paint(string_array, FILENAME, character_width: 10, character_height: 10)
-    result = ChunkyPNG::Image.from_file(FILENAME)
+    AsciiPaint.paint(string_array, OUTPUT_FILENAME, character_width: 10, character_height: 10)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
     result.height.should eq(2 * 10)
     result.width.should eq(5 * 10)
   end
 
   it "accepts a filename input" do
-    AsciiPaint.paint(input_filename, FILENAME, character_width: 10, character_height: 10)
-    result = ChunkyPNG::Image.from_file(FILENAME)
+    AsciiPaint.paint(input_filename, OUTPUT_FILENAME, character_width: 10, character_height: 10)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
     result.height.should eq(2 * 10)
     result.width.should eq(5 * 10)
   end
@@ -68,8 +67,8 @@ describe AsciiPaint do
   end
 
   it "obeys per-method-call configuration" do
-    AsciiPaint.paint("ASCII\npaint", FILENAME, character_width: 10, character_height: 10)
-    result = ChunkyPNG::Image.from_file(FILENAME)
+    AsciiPaint.paint("ASCII\npaint", OUTPUT_FILENAME, character_width: 10, character_height: 10)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
     result.height.should eq(2 * 10)
     result.width.should eq(5 * 10)
   end
@@ -79,8 +78,8 @@ describe AsciiPaint do
   end
 
   it "paints transparent paint" do
-    AsciiPaint.paint("ASCII\npaint", FILENAME, character_width: 10, color_map: {'S' => :transparent})
-    result = ChunkyPNG::Image.from_file(FILENAME)
+    AsciiPaint.paint("ASCII\npaint", OUTPUT_FILENAME, character_width: 10, color_map: {'S' => :transparent})
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
     color = result.get_pixel(15, 0)
     alpha = ChunkyPNG::Color.a(color)
     alpha.should eq(0)

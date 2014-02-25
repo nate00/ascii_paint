@@ -18,6 +18,8 @@ end
 
 require 'ascii_paint'
 
+OUTPUT_FILENAME = 'painted.png'
+
 module Helpers
   def self.cd_work_directory
     create_work_directory
@@ -39,5 +41,18 @@ module Helpers
 
   def self.fixtures_directory
     AsciiPaint.root.join('spec', 'fixtures')
+  end
+
+  def self.data_directory
+    AsciiPaint.root.join('lib', 'ascii_paint')
+  end
+
+  # TODO: split into separate helper
+  def self.each_block_character_path
+    letters_dir = Helpers.data_directory.join('letters')
+    letters_dir.each_child(false) do |path|
+      full_path = letters_dir.join(path)
+      yield full_path
+    end
   end
 end
