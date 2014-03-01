@@ -20,7 +20,7 @@ module AsciiPaint
     end
 
     def newline?
-      !!@newline
+      @newline == true
     end
 
     def to_s
