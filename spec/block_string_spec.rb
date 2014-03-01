@@ -41,6 +41,26 @@ describe AsciiPaint::BlockString do
     File.should_not be_a_file OUTPUT_FILENAME
   end
 
+  it "renders adjacent newlines" do
+    ascii = "ASCII\n\npaint"
+    AsciiPaint.block_paint(ascii, OUTPUT_FILENAME, character_height: 10)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
+
+    rows = 3
+    row_height = 10 * AsciiPaint::BlockCharacter.height
+    result.height.should eq(rows * row_height)
+  end
+
+  it "renders leading and trailing newlines" do
+    ascii = "\nASCII\npaint\n"
+    AsciiPaint.block_paint(ascii, OUTPUT_FILENAME, character_height: 10)
+    result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
+
+    rows = 4
+    row_height = 10 * AsciiPaint::BlockCharacter.height
+    result.height.should eq(rows * row_height)
+  end
+
   context "data directory" do
     it "has character files of the correct width" do
       Helpers.each_block_character_path do |path|
