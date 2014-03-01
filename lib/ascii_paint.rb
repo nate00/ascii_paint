@@ -30,6 +30,7 @@ module AsciiPaint
   # @return [String]
   #   the name of the painted PNG file
   def self.paint(ascii_art, out_filename, configuration = {})
+    # TODO: full path return value
     global_configuration = self.config
     local_configuration = global_configuration.dup.set_options(configuration)
 
