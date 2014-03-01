@@ -60,16 +60,16 @@ describe AsciiPaint::BlockString do
       end
     end
 
-    it "has character files for all alphanumeric characters" do
-      desired_characters = ('A'..'Z').to_a + ('0'..'9').to_a
-      found_characters = []
+    it "has character files for all printing ASCII characters" do
+      printing_character_codes = (32..126).map { |code| code.to_s }
+      character_codes_present =
+        Helpers.each_block_character_path.map do |path|
+          path.to_s.match(/\/(\d+)\.txt/)[1]
+        end
 
-      Helpers.each_block_character_path do |path|
-        character = path.to_s.match(/\/(.)\.txt/)[1]
-        found_characters << character
-      end
+      missing_character_codes = printing_character_codes - character_codes_present
 
-      found_characters.should =~ desired_characters
+      missing_character_codes.should be_empty, missing_character_codes.to_s
     end
   end
 end

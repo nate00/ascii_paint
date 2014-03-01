@@ -55,13 +55,19 @@ module AsciiPaint
 
     # TODO: filename escaping
     def load_ascii(character)
-      path = block_characters_dir.join("#{character}.txt")
+      path = path_for character
+      puts path
       if File.exists? path
         @ascii = File.open(path, 'r').to_a.map(&:chomp)
         @ascii = pad_ascii(@ascii)
       else
         raise "Character not supported: #{character}"
       end
+    end
+
+    def path_for(character)
+      # Use ASCII codes!
+      block_characters_dir.join "#{character.ord}.txt"
     end
 
     def pad_ascii(ascii)

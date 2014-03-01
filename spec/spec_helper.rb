@@ -45,6 +45,7 @@ module Helpers
 
   # TODO: split into separate helper
   def self.each_block_character_path
+    return to_enum(:each_block_character_path) unless block_given?
     block_characters_dir = AsciiPaint.root.join('data', 'block_characters')
     block_characters_dir.each_child(false) do |path|
       full_path = block_characters_dir.join(path)
