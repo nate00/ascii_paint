@@ -131,51 +131,16 @@ module AsciiPaint
       COLOR_FOR_UNDEFINED_CHARACTER = :black
       COLOR_MAP =
         begin
-          map = {
-            ' ' => :transparent,
-
-            '!' => :red,
-            '@' => :orange,
-            '#' => :yellow,
-            '$' => :green,
-            '%' => :blue,
-            '^' => :purple,
-
-            '_' => :white,
-            '~' => :black,
-
-            '<' => :lightgrey,
-            '>' => :grey,
-            '?' => :darkgrey,
-            ',' => :lightslategrey,
-            '.' => :slategrey,
-            '/' => :darkslategrey,
-            '\\' => :dimgrey,
-
-            ':' => :chocolate,
-            ';' => :blanchedalmond,
-            '\'' => :coral,
-            '"' => :deepskyblue,
-            '{' => :indigo,
-            '}' => :ivory,
-            '[' => :khaki,
-            ']' => :lavender,
-            '|' => :hotpink,
-            '&' => :darksalmon,
-            '*' => :lime,
-            '(' => :lightyellow,
-            ')' => :honeydew,
-            '-' => :azure,
-            '+' => :crimson,
-            '=' => :antiquewhite,
-            '`' => :cornsilk
-          }
+          map = {}
 
           letters = ('a'..'z').zip('A'..'Z').flatten  # ['a', 'A', 'b', 'B', ...]
           map.merge! rainbow_mapping(letters)
 
           numbers = ('0'..'9')
           map.merge! rainbow_mapping(numbers)
+
+          punctuation = '~!@#$%^&*()_+`-={}|[]\:;"\'<>?,./'.chars
+          map.merge! rainbow_mapping(punctuation)
 
           map
         end
