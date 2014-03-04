@@ -60,7 +60,7 @@ module AsciiPaint
     if ascii_art.size == 1
       ascii_art = File.open(ascii_art[0], 'r').to_a.map(&:chomp)
     end
-    ascii_art
+    rectangularize(ascii_art)
   end
 
   def self.ascii_to_image(ascii_array, configuration)
@@ -74,7 +74,7 @@ module AsciiPaint
     width = lines.map(&:size).max
 
     width_pixels, height_pixels = configuration.characters_to_pixels(width, height)
-    png = ChunkyPNG::Image.new(width_pixels, height_pixels, configuration.color_map[' '])
+    png = ChunkyPNG::Image.new(width_pixels, height_pixels, ChunkyPNG::Color::TRANSPARENT)
   end
 
   def self.ascii_to_colors(strings, configuration)
@@ -97,6 +97,14 @@ module AsciiPaint
     end
 
     image
+  end
+
+  def self.rectangularize(lines)
+    width = lines.map(&:size).max
+
+    lines.map do |line|
+      line.ljust(width, ' ')
+    end
   end
 
   def self.save_image(image, filename, _)
