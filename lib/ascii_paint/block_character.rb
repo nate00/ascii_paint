@@ -56,7 +56,7 @@ module AsciiPaint
     # TODO: filename escaping
     def load_ascii(character)
       path = path_for character
-      if File.exists? path
+      if File.exist?(path)
         @ascii = File.open(path, 'r').to_a.map(&:chomp)
         @ascii = pad_ascii(@ascii)
       else
