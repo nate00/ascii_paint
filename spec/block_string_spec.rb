@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'ascii_paint'
 require 'pry'
 
@@ -14,13 +15,13 @@ describe AsciiPaint::BlockString do
 
   it "writes a file" do
     AsciiPaint.block_paint("ASCII", OUTPUT_FILENAME)
-    File.should be_a_file OUTPUT_FILENAME
+    expect(File).to be_a_file OUTPUT_FILENAME
   end
 
   it "obeys local configuration" do
     AsciiPaint.block_paint("ASCII", OUTPUT_FILENAME, character_height: 100)
     result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
-    result.height.should eq(100 * AsciiPaint::BlockCharacter.height)
+    expect(result.height).to eq(100 * AsciiPaint::BlockCharacter.height)
   end
 
   it "obeys global configuration" do
@@ -30,15 +31,15 @@ describe AsciiPaint::BlockString do
 
     AsciiPaint.block_paint("ASCII", OUTPUT_FILENAME)
     result = ChunkyPNG::Image.from_file(OUTPUT_FILENAME)
-    result.height.should eq(100 * AsciiPaint::BlockCharacter.height)
+    expect(result.height).to eq(100 * AsciiPaint::BlockCharacter.height)
   end
 
   it "deletes temporary files" do
     AsciiPaint.block_paint("ASCII\npaint", OUTPUT_FILENAME) do |f|
-      File.should be_a_file OUTPUT_FILENAME
+      expect(File).to be_a_file OUTPUT_FILENAME
     end
 
-    File.should_not be_a_file OUTPUT_FILENAME
+    expect(File).not_to be_a_file OUTPUT_FILENAME
   end
 
   it "renders adjacent newlines" do
@@ -48,7 +49,7 @@ describe AsciiPaint::BlockString do
 
     rows = 3
     row_height = 10 * AsciiPaint::BlockCharacter.height
-    result.height.should eq(rows * row_height)
+    expect(result.height).to eq(rows * row_height)
   end
 
   it "renders leading and trailing newlines" do
@@ -58,7 +59,7 @@ describe AsciiPaint::BlockString do
 
     rows = 4
     row_height = 10 * AsciiPaint::BlockCharacter.height
-    result.height.should eq(rows * row_height)
+    expect(result.height).to eq(rows * row_height)
   end
 
   context "data directory" do
@@ -66,7 +67,7 @@ describe AsciiPaint::BlockString do
       Helpers.each_block_character_path do |path|
         File.open(path, 'r') do |file|
           file.each_line do |line|
-            line.chomp.size.should eq(AsciiPaint::BlockCharacter::UNPADDED_WIDTH), file.path
+            expect(line.chomp.size).to eq(AsciiPaint::BlockCharacter::UNPADDED_WIDTH), file.path
           end
         end
       end
@@ -75,7 +76,7 @@ describe AsciiPaint::BlockString do
     it "has character files of the correct height" do
       Helpers.each_block_character_path do |path|
         File.open(path, 'r') do |file|
-          file.each_line.count.should eq(AsciiPaint::BlockCharacter::UNPADDED_HEIGHT), file.path
+          expect(file.each_line.count).to eq(AsciiPaint::BlockCharacter::UNPADDED_HEIGHT), file.path
         end
       end
     end
@@ -89,7 +90,7 @@ describe AsciiPaint::BlockString do
 
       missing_character_codes = printing_character_codes - character_codes_present
 
-      missing_character_codes.should be_empty, missing_character_codes.to_s
+      expect(missing_character_codes).to be_empty, missing_character_codes.to_s
     end
   end
 end
